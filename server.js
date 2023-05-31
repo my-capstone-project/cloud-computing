@@ -1,18 +1,41 @@
 const express = require('express')
 const app = express()
 const port = 8383
-const {db} = require('./firebase.js')
+const { db } = require('./firebase.js')
 const { FieldValue } = require('firebase-admin/firestore')
 const bodyParser = require('body-parser')
 const multer = require('multer')
 const uploadImage = require('./helpers/helpers.js')
+const admin = require('firebase-admin')
+const { getAuth } = require('firebase-admin/auth')
 
 app.use(express.json())
+app.use(express.urlencoded({extended: true}));
+
+// User Auth Sign-up
+app.post('/signup', async (req, res) => {
+    const user = {
+        email: req.body.email,
+        password: req.body.password,
+    }
+    const userResponse = await admin.auth().createUser({
+        email: user.email,
+        password: user.password,
+        emailVerified: false,
+        disabled: false
+    })
+    res.json(userResponse);
+})
+
+// User Auth Login
+app.get('/login', async (req, res) => {
+    const auth = getAuth
+})
 
 // Get all users with id
 app.get("/", async (req, res) => {
     const snapshot = await db.collection('users').get()
-    const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}))
+    const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
     res.send(list);
 })
 
@@ -20,23 +43,23 @@ app.get("/", async (req, res) => {
 app.post('/adduser', async (req, res) => {
     const data = req.body;
     await db.collection('users').add(data);
-    res.send({ msg: "User Added "})
-  });
+    res.send({ msg: "User Added " })
+});
 
-  // Update user with id
+// Update user with id
 app.post('/update', async (req, res) => {
     const id = req.body.id;
     delete req.body.id;
     const data = req.body;
     await db.collection('users').doc(id).update(data);
-    res.send({ msg: "Updated"});
+    res.send({ msg: "Updated" });
 })
 
 // Delete user with id
 app.delete('/delete', async (req, res) => {
     const id = req.body.id;
     await db.collection('users').doc(id).delete();
-    res.send({ msg: "Deleted"});
+    res.send({ msg: "Deleted" });
 })
 
 
@@ -54,7 +77,7 @@ const multerMid = multer({
 app.disable('x-powered-by')
 app.use(multerMid.single('file'))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.post('/uploads', async (req, res, next) => {
     try {
@@ -79,100 +102,25 @@ app.post('/uploads', async (req, res, next) => {
         await db.collection('potholes').add(data);
 
         res
-          .status(200)
-          .json({
-            message: "Upload was successful",
-            data: imageUrl
-          })
-      } catch (error) {
+            .status(200)
+            .json({
+                message: "Upload was successful",
+                data: imageUrl
+            })
+    } catch (error) {
         next(error)
-      }
-    })
-    
-    app.use((err, req, res, next) => {
-      res.status(500).json({
+    }
+})
+
+app.use((err, req, res, next) => {
+    res.status(500).json({
         error: err,
         message: 'Internal server error!',
-      })
-      next()
-    });
+    })
+    next()
+});
 
 
 //======================================================================
-
-
-
-
-
-
-
-app.get('/friends', async (req, res) => {
-    const peopleRef = db.collection('people').doc('associates')
-    const doc = await peopleRef.get()
-    if (!doc.exists) {
-        return res.sendStatus(400)
-    }
-
-    res.status(200).send(doc.data())
-})
-
-app.get('/friends/:name', async (req, res) => {
-    const { name } = req.params
-    const peopleRef = db.collection('people').doc('associates')
-    const doc = await peopleRef.get()
-    if (!name || !(name in doc.data())) {
-        return res.sendStatus(404)
-    }
-    res.status(200).send({ [name]: doc.data() })
-})
-
-app.post('/addfriend', async (req, res) => { //addfriend
-    const { name, status } = req.body
-    const peopleRef = db.collection('people').doc('associates')
-    const res2 = await peopleRef.set({
-        [name]: status
-    }, { merge: true })
-    const doc = await peopleRef.get()
-    if (!doc.exists) {
-        return res.sendStatus(400)
-    }
-    // friends[name] = status
-    res.status(200).send(doc.data())
-})
-
-app.patch('/changestatus', async (req, res) => { //changeStatus
-    const { name, newStatus } = req.body
-    const peopleRef = db.collection('people').doc('associates')
-    const res2 = await peopleRef.set({
-        [name]: newStatus
-    }, { merge: true })
-    const doc = await peopleRef.get()
-    if (!doc.exists) {
-        return res.sendStatus(400)
-    }
-
-    // friends[name] = newStatus
-    res.status(200).send(doc.data())
-})
-
-app.delete('/friends', async (req, res) => {
-    const { name } = req.body
-    const peopleRef = db.collection('people').doc('associates')
-    const res2 = await peopleRef.set({
-        [name]: FieldValue.delete()
-    }, { merge: true })
-    const doc = await peopleRef.get()
-    if (!doc.exists) {
-        return res.sendStatus(400)
-    }
-    // delete friends[name]
-    res.status(200).send(doc.data())
-})
-
-
-
-
-
-
 
 app.listen(port, () => console.log(`Server has started on port: ${port}`))
