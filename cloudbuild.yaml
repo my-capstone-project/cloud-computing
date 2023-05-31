@@ -1,0 +1,24 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', 
+      '--build-arg', 'KEY_FILE=${_KEY_FILE}',
+      '--build-arg', 'GCLOUD_PROJECT_STG=${_GCLOUD_PROJECT_STG}',
+      '--build-arg', 'GCLOUD_BUCKET=${_GCLOUD_BUCKET}',
+      '--build-arg', 'VERSION=${_VERSION}',
+      '-t',
+      'gcr.io/$PROJECT_ID/repoth-model:$SHORT_SHA', '.']
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push',
+      'gcr.io/$PROJECT_ID/repoth-model:$SHORT_SHA']
+
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: ['run', 'deploy', 'repoth-model', '--image', 'gcr.io/$PROJECT_ID/repoth-model:$SHORT_SHA', 
+        '--region', 'asia-southeast2', '--allow-unauthenticated']
+
+images:
+  - gcr.io/$PROJECT_ID/repoth-model:$SHORT_SHA

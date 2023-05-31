@@ -5,7 +5,7 @@ const { db } = require('./firebase.js')
 const { FieldValue } = require('firebase-admin/firestore')
 const bodyParser = require('body-parser')
 const multer = require('multer')
-const uploadImage = require('./helpers/helpers.js')
+const uploadImage = require('../helpers/helpers.js')
 const admin = require('firebase-admin')
 const { getAuth } = require('firebase-admin/auth')
 
@@ -32,8 +32,10 @@ app.get('/login', async (req, res) => {
     const auth = getAuth
 })
 
+app.get('/', (req, res) => res.send('Hello World!'));
+
 // Get all users with id
-app.get("/", async (req, res) => {
+app.get("/getusers", async (req, res) => {
     const snapshot = await db.collection('users').get()
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
     res.send(list);
