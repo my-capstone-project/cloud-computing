@@ -1,37 +1,3 @@
-### GET FRIENDs
-GET http://localhost:8383/friends
-
-### GET FRIEND
-GET http://localhost:8383/friends/avee
-
-
-### ADD A FRIEND
-POST http://localhost:8383/addfriend
-Content-Type: application/json
-
-{
-    "name": "fariz",
-    "status": "villain"
-}
-
-### UPDATE STATUS OF A FRIEND
-PATCH http://localhost:8383/changestatus
-Content-Type: application/json
-
-{
-    "name": "avee",
-    "newStatus": "anti-hero"
-}
-
-
-###DELETE A FRIEND
-DELETE http://localhost:8383/friends
-Content-Type: application/json
-
-{
-    "name": "fariz"
-}
-
 ###ADD USER 
 POST http://localhost:8383/adduser
 Content-Type: application/json
