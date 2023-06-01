@@ -1,0 +1,1 @@
+public link for postman api documentation : https://documenter.getpostman.com/view/26468965/2s93mBxK34

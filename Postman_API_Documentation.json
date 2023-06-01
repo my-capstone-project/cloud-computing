@@ -1,0 +1,582 @@
+{
+	"info": {
+		"_postman_id": "f05de072-0212-4b07-9911-f58f1cd60e23",
+		"name": "Capstone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26468965"
+	},
+	"item": [
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8383/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8383",
+					"path": [
+						""
+					]
+				},
+				"description": "Main Page"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8383/getusers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8383",
+					"path": [
+						"getusers"
+					]
+				},
+				"description": "Get all data in Firestore data"
+			},
+			"response": [
+				{
+					"name": "Get All Users",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8383/getusers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8383",
+							"path": [
+								"getusers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "298"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"12a-lDYyMMJpPTDHgrRUV9dU1M93dsA\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Jun 2023 16:27:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"1mbP3IRrr8ccQ8gx7zDH\",\n        \"name\": \"padma\"\n    },\n    {\n        \"id\": \"51ZHpAbbBdDv5vz1yU0J\",\n        \"name\": \"deployed on testapp\"\n    },\n    {\n        \"id\": \"KEKuoII4fihAGpw7lujW\",\n        \"name\": \"brianImanuel\"\n    },\n    {\n        \"id\": \"RF2QoOMRsVzgrLVmM6Zg\",\n        \"name\": \"fikriUpdated\"\n    },\n    {\n        \"id\": \"g6JvvQTZjWj6fIUaRYkQ\",\n        \"name\": \"fariz\"\n    },\n    {\n        \"id\": \"ubYIdoKld3s28QXjPItD\",\n        \"name\": \"ryan\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"fariz\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8383/adduser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8383",
+					"path": [
+						"adduser"
+					]
+				},
+				"description": "Add new user to Firebase"
+			},
+			"response": [
+				{
+					"name": "Add User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"fariz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8383/adduser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8383",
+							"path": [
+								"adduser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "21"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"15-x6MxGPz8GlpDMNAJ0HDOoNi3cto\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Jun 2023 16:31:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"User Added \"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete User by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"IYcvkg2LKDRzSrBmkAyn\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8383/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8383",
+					"path": [
+						"delete"
+					]
+				},
+				"description": "Delete user by ID"
+			},
+			"response": [
+				{
+					"name": "Delete User by ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"IYcvkg2LKDRzSrBmkAyn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8383/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8383",
+							"path": [
+								"delete"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "17"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"11-qa4dieuZ7jGIVe3I40rng8X+VNo\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Jun 2023 16:32:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"Deleted\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Upload Images",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/berka/Pictures/abstract-g79399d870_1920.jpg"
+						},
+						{
+							"key": "latitude",
+							"value": "84",
+							"type": "default"
+						},
+						{
+							"key": "longitude",
+							"value": "80",
+							"type": "default"
+						},
+						{
+							"key": "timestap",
+							"value": "",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8383/uploads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8383",
+					"path": [
+						"uploads"
+					]
+				},
+				"description": "Upload image to cloud storage using form-data request payload"
+			},
+			"response": [
+				{
+					"name": "Upload Images",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/berka/Pictures/abstract-g79399d870_1920.jpg"
+								},
+								{
+									"key": "latitude",
+									"value": "84",
+									"type": "default"
+								},
+								{
+									"key": "longitude",
+									"value": "80",
+									"type": "default"
+								},
+								{
+									"key": "timestap",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8383/uploads",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8383",
+							"path": [
+								"uploads"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "118"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"76-+oOgfY46x41KPDvI0X4SZtf5jEw\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Jun 2023 16:32:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Upload was successful\",\n    \"data\": \"https://storage.googleapis.com/potholeimages/abstract-g79399d870_1920.jpg\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"uii@gmail.com\",\r\n    \"password\": \"awikwok\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8383/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8383",
+					"path": [
+						"signup"
+					]
+				},
+				"description": "Sign-up Authentication using :\n\n- email : [...@gmail.com](mailto:...@gmail.com)\n    \n\n- password : anypassword"
+			},
+			"response": [
+				{
+					"name": "Signup",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"uii@gmail.com\",\r\n    \"password\": \"awikwok\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8383/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8383",
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "350"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"15e-Lep7Pg5g5ZXfGDvs7iDzwg9oG1E\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Jun 2023 16:28:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"uid\": \"7QmBmHmB13QmA8Crdij0TqkPjt53\",\n    \"email\": \"uii@gmail.com\",\n    \"emailVerified\": false,\n    \"disabled\": false,\n    \"metadata\": {\n        \"lastSignInTime\": null,\n        \"creationTime\": \"Thu, 01 Jun 2023 16:28:32 GMT\",\n        \"lastRefreshTime\": null\n    },\n    \"tokensValidAfterTime\": \"Thu, 01 Jun 2023 16:28:32 GMT\",\n    \"providerData\": [\n        {\n            \"uid\": \"uii@gmail.com\",\n            \"email\": \"uii@gmail.com\",\n            \"providerId\": \"password\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "CloudRun",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"udam@gmail.com\",\r\n    \"secret\": \"wow123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://testapp-g3shqtq6aq-uc.a.run.app/signup",
+					"protocol": "https",
+					"host": [
+						"testapp-g3shqtq6aq-uc",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"signup"
+					]
+				},
+				"description": "This is the URL of the API that deployed in Cloud Run"
+			},
+			"response": [
+				{
+					"name": "CloudRun",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"udam@gmail.com\",\r\n    \"secret\": \"wow123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://testapp-g3shqtq6aq-uc.a.run.app/signup",
+							"protocol": "https",
+							"host": [
+								"testapp-g3shqtq6aq-uc",
+								"a",
+								"run",
+								"app"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"118-edGu4U6wYP9Jcyk4Tq4oOTJBnxk\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "c7880c5729c44d058f8a49a0d1ea7c0e;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Jun 2023 16:28:58 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "280"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"uid\": \"mH9MSLBSOcbKA8voQ9knnSQlNQw1\",\n    \"email\": \"udam@gmail.com\",\n    \"emailVerified\": false,\n    \"disabled\": false,\n    \"metadata\": {\n        \"lastSignInTime\": null,\n        \"creationTime\": \"Thu, 01 Jun 2023 16:28:58 GMT\",\n        \"lastRefreshTime\": null\n    },\n    \"tokensValidAfterTime\": \"Thu, 01 Jun 2023 16:28:58 GMT\",\n    \"providerData\": []\n}"
+				}
+			]
+		}
+	]
+}
