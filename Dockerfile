@@ -12,7 +12,7 @@ RUN npm install
 COPY . .
 
 # listen to spesific port
-EXPOSE 8383
+EXPOSE 8080
 
 # run this command when the app started
 CMD [ "npm", "start" ]

@@ -1,11 +1,7 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', 
-      '--build-arg', 'KEY_FILE=${_KEY_FILE}',
-      '--build-arg', 'GCLOUD_PROJECT_STG=${_GCLOUD_PROJECT_STG}',
-      '--build-arg', 'GCLOUD_BUCKET=${_GCLOUD_BUCKET}',
-      '--build-arg', 'VERSION=${_VERSION}',
+    args: ['build',
       '-t',
       'gcr.io/$PROJECT_ID/backend2:$SHORT_SHA', '.']
   

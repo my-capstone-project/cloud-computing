@@ -1,6 +1,7 @@
 const express = require('express') // import express framework
 const app = express() // create instances from express as 'app'
-const port = 8383 // used port
+const PORT = process.env.PORT || 8080;
+const HOST = process.env.HOST || '0.0.0.0';
 const { db } = require('./firebase.js') // import db var. database from firestore
 
 const uploadImage = require('../helpers/helpers.js') // import function uploadImage
@@ -87,42 +88,60 @@ app.use(bodyParser.urlencoded({ extended: false })) // Meng-handle request body 
 
 
 app.post('/uploads', async (req, res, next) => {
+    let imageUrl = ""
     try {
         const myFile = req.file //mengupload gambar
-        const imageUrl = await uploadImage(myFile) //memanggil fungsi upload image di helper.js
+        imageUrl = await uploadImage(myFile); //memanggil fungsi upload image di helper.js
+    } catch (error) {
+        imageUrl = req.body.imageUrl || undefined;
+    }
 
-        const currentDate = new Date(); //menentukan data tanggal
+    const currentDate = new Date(); //menentukan data tanggal
 
-        const latitude = req.body.latitude; // Mendapatkan nilai latitude dari permintaan POST
-        const longitude = req.body.longitude; // Mendapatkan nilai longitude dari permintaan POST
+    const latitude = req.body.latitude || undefined; // Mendapatkan nilai latitude dari permintaan POST
+    const longitude = req.body.longitude || undefined; // Mendapatkan nilai longitude dari permintaan POST
 
-        const data = {
-            imageUrl: imageUrl,
-            geolocation: {
-                latitude: latitude,
-                longitude: longitude
-            },
-            date: currentDate,
-        };
+    // Checking fields
+    if(imageUrl == undefined){
+        next("imageUrl harus diisi")
+        return;
+    }
+    if(latitude == undefined){
+        next("latitude harus diisi")
+        return;
+    }
+    if(longitude == undefined){
+        next("longitude harus diisi")
+        return;
+    }
 
-        // Mengirim data ke firebase
-        await db.collection('potholes').add(data); // jika data sudah terisi, add data ke collection potholes
+    const data = {
+        imageUrl: imageUrl,
+        geolocation: {
+            latitude: latitude,
+            longitude: longitude
+        },
+        date: currentDate,
+    };
+
+    // Mengirim data ke firebase
+    await db.collection('potholes').add(data); // jika data sudah terisi, add data ke collection potholes
 
     res
-        .status(200) // Set status kode respon 200 sebagai tanda berhasil
-        .json({ // Mengirim respons dalam format JSON
-            message: "Upload was successful", // Pesan konfirmasi bahwa upload berhasil
-            data: imageUrl // URL gambar yang di-upload
-        })
-    } catch (error) {
-        next(error) // Menangkap kesalahan dan meneruskannya ke middleware error handling selanjutnya
-    }
+    .status(200) // Set status kode respon 200 sebagai tanda berhasil
+    .json({ // Mengirim respons dalam format JSON
+        error: false,
+        message: "Upload was successful", // Pesan konfirmasi bahwa upload berhasil
+        result: data
+    })
+    
+    // next(error) // Menangkap kesalahan dan meneruskannya ke middleware error handling selanjutnya
 })
 
 app.use((err, req, res, next) => { // Middleware penanganan kesalahan atau error
     res.status(500).json({ // Mengatur status kode respon menjadi 500, yang menandakan kesalahan server internal
-        error: err, // Menyertakan informasi tentang kesalahan dalam respons
-        message: 'Internal server error!', // Pesan kesalahan yang ditampilkan dalam respons
+        error: true, // Menyertakan informasi tentang kesalahan dalam respons
+        message: err, // Pesan kesalahan yang ditampilkan dalam respons
     })
     next() // Meneruskan kendali ke middleware berikutnya
 });
@@ -130,7 +149,10 @@ app.use((err, req, res, next) => { // Middleware penanganan kesalahan atau error
 
 //======================================================================
 
-app.listen(port, () => console.log(`Server has started on port: ${port}`)) //menjalankan server pada port tertentu
+//menjalankan server pada port tertentu
+app.listen(PORT, HOST, () => {
+    console.log(`Running on http://${HOST}:${PORT}`);
+});
 
 
 
