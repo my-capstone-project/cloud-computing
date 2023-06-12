@@ -118,8 +118,8 @@ app.post('/uploads', async (req, res, next) => {
     const data = {
         imageUrl: imageUrl,
         geolocation: {
-            latitude: latitude,
-            longitude: longitude
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude)
         },
         date: currentDate,
     };
