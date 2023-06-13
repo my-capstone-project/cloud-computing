@@ -98,12 +98,17 @@ app.post('/uploads', async (req, res, next) => {
 
     const currentDate = new Date(); //menentukan data tanggal
 
+    const username = req.body.username || undefined; // Mendapatkan nilai email dari permintaan POST
     const latitude = req.body.latitude || undefined; // Mendapatkan nilai latitude dari permintaan POST
     const longitude = req.body.longitude || undefined; // Mendapatkan nilai longitude dari permintaan POST
 
     // Checking fields
     if(imageUrl == undefined){
         next("imageUrl harus diisi")
+        return;
+    }
+    if(username == undefined){
+        next("username harus diisi")
         return;
     }
     if(latitude == undefined){
@@ -116,6 +121,7 @@ app.post('/uploads', async (req, res, next) => {
     }
 
     const data = {
+        username,
         imageUrl: imageUrl,
         geolocation: {
             latitude: parseFloat(latitude),
